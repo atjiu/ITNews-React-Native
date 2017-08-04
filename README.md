@@ -10,9 +10,11 @@ IT资讯APP，使用React Native编写
 
 ## 截图
 
-<img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.14.png' width='375'>
-<img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.22.png' width='375'>
-<img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.27.png' width='375'>
+<div style="display: flex; flex-direction: 'row'; justify-content: 'space-between'">
+  <img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.14.png' width='375'>
+  <img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.22.png' width='375'>
+  <img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.27.png' width='375'>
+</div>
 
 ## 开源协议
 
