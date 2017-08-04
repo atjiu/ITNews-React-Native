@@ -91,8 +91,8 @@ export default class ItemList extends Component {
       <View style={styles.rowStyle}>
         <Text style={{fontSize: 18}}>{rowData.title}</Text>
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, alignItems: 'flex-end'}}>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <Image source={{uri: rowData.avatar}} style={{width: 16, height: 16, borderRadius: 8, marginRight: 10}}/>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Image source={{uri: rowData.avatar}} style={{width: 20, height: 20, borderRadius: 10, marginRight: 10}}/>
             <Text style={styles.other}>{rowData.name}</Text>
             <Text style={styles.other}>{rowData.time}</Text>
           </View>

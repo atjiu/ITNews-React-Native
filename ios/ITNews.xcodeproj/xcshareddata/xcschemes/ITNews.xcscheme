@@ -31,7 +31,7 @@
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "ITNews.app"
                BlueprintName = "ITNews"
-               ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+               ReferencedContainer = "container:ITNews.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "ITNewsTests.xctest"
                BlueprintName = "ITNewsTests"
-               ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+               ReferencedContainer = "container:ITNews.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,7 +63,7 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "ITNewsTests.xctest"
                BlueprintName = "ITNewsTests"
-               ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+               ReferencedContainer = "container:ITNews.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -73,7 +73,7 @@
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "ITNews.app"
             BlueprintName = "ITNews"
-            ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+            ReferencedContainer = "container:ITNews.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -96,7 +96,7 @@
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "ITNews.app"
             BlueprintName = "ITNews"
-            ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+            ReferencedContainer = "container:ITNews.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -115,7 +115,7 @@
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "ITNews.app"
             BlueprintName = "ITNews"
-            ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+            ReferencedContainer = "container:ITNews.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

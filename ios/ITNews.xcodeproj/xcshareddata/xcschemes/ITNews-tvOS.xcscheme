@@ -31,7 +31,7 @@
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
                BuildableName = "ITNews-tvOS.app"
                BlueprintName = "ITNews-tvOS"
-               ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+               ReferencedContainer = "container:ITNews.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
                BuildableName = "ITNews-tvOSTests.xctest"
                BlueprintName = "ITNews-tvOSTests"
-               ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+               ReferencedContainer = "container:ITNews.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,7 +63,7 @@
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
                BuildableName = "ITNews-tvOSTests.xctest"
                BlueprintName = "ITNews-tvOSTests"
-               ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+               ReferencedContainer = "container:ITNews.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -73,7 +73,7 @@
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "ITNews-tvOS.app"
             BlueprintName = "ITNews-tvOS"
-            ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+            ReferencedContainer = "container:ITNews.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -96,7 +96,7 @@
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "ITNews-tvOS.app"
             BlueprintName = "ITNews-tvOS"
-            ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+            ReferencedContainer = "container:ITNews.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -115,7 +115,7 @@
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
             BuildableName = "ITNews-tvOS.app"
             BlueprintName = "ITNews-tvOS"
-            ReferencedContainer = "container:IT&#x8d44;&#x8baf;.xcodeproj">
+            ReferencedContainer = "container:ITNews.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

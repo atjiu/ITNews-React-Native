@@ -116,7 +116,9 @@ const ITNews = StackNavigator({
   TuiCool: {screen: TuiCoolList},
   SegmentFault: {screen: SegmentFaultList},
   ZhihuDaily: {screen: ZhihuDailyList},
-  NewsDetail: {screen: NewsDetail},
+  NewsDetail: {
+    screen: NewsDetail,
+  },
 });
 
 AppRegistry.registerComponent('ITNews', () => ITNews);

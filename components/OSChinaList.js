@@ -5,7 +5,7 @@ import NewsDetail from './NewsDetail';
 import Moment from 'moment';
 import 'moment/locale/zh-cn';
 
-const url = 'http://www.oschina.net/action/ajax/get_more_news_list?newsType=&p=';
+const url = 'https://www.oschina.net/action/ajax/get_more_news_list?newsType=&p=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
