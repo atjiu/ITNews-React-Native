@@ -27,6 +27,15 @@ IT资讯APP，使用React Native编写
 - 推荐自己打包，`cd android & ./gradlew assembleRelease` 因为有时候更新了代码不能保证能及时打包
 - IOS用户可以使用XCODE打开 `ios/ITNews.xcodeproj` 文件，直接运行到自己的手机上就可以了
 
+**注意：Android打包之前要在 `~/.gradle` 下新建一个 `gradle.properties` 文件，里面配置一下证书信息**
+
+```properties
+MYAPP_RELEASE_STORE_FILE=your store file path
+MYAPP_RELEASE_KEY_ALIAS=your alias
+MYAPP_RELEASE_STORE_PASSWORD=your store password
+MYAPP_RELEASE_KEY_PASSWORD=your password
+```
+
 ## 截图
 
 <div style="display: flex; flex-direction: 'row'; justify-content: 'space-between'">

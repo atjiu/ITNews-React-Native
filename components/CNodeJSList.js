@@ -30,6 +30,7 @@ export default class ItemList extends Component {
   }
 
   _fetchData() {
+    if (this.state.loadMore === this.state.loadMore) return;
     fetch(url + 'api/v1/topics?page=' + this.state.pageNo)
       .then(response => response.json())
       .then(json => {
@@ -44,17 +45,17 @@ export default class ItemList extends Component {
 
   _onRefresh() {
     this.setState({
+      refreshing: true,
       pageNo: 1,
-    });
-    this._fetchData();
+    }, () => this._fetchData());
   }
 
   _onEndReached() {
+    if (this.state.dataSource.length === 0) return;
     this.setState({
       loadMore: true,
-      pageNo: this.state.pageNo + 1
-    });
-    this._fetchData();
+      pageNo: this.state.pageNo + 1,
+    }, () => this._fetchData());
   }
 
   _onPress(rowData) {

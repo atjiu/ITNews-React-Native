@@ -11,9 +11,10 @@ let pageNo = Moment(new Date()).format('YYYY-MM-DD');
 const ONEDAY = 24 * 60 * 60 * 1000;
 
 export default class ItemList extends Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
   });
+
   constructor(props) {
     super(props);
 
@@ -31,6 +32,7 @@ export default class ItemList extends Component {
   }
 
   _fetchData() {
+    if (this.state.refreshing === this.state.loadMore) return;
     fetch(url + this.state.pageNo)
       .then(response => response.text())
       .then(text => {
@@ -63,16 +65,16 @@ export default class ItemList extends Component {
     pageNo = Moment(new Date()).format('YYYY-MM-DD');
     this.setState({
       pageNo: pageNo
-    })
+    }, () => this._fetchData());
   }
 
   _onEndReached() {
+    if (this.state.dataSource.length === 0) return;
     pageNo = Moment(new Date(pageNo).getTime() - ONEDAY).format("YYYY-MM-DD");
     this.setState({
       loadMore: true,
       pageNo: pageNo
-    });
-    this._fetchData();
+    }, () => this._fetchData());
   }
 
   _onPress(rowData) {
