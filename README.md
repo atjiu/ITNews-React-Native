@@ -41,8 +41,7 @@ MYAPP_RELEASE_KEY_PASSWORD=your password
 <div style="display: flex; flex-direction: 'row'; justify-content: 'space-between'">
   <img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.14.png' width='375'>
   <img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.22.png' width='375'>
-  <img src='./assets/Simulator Screen Shot 2017年8月5日 08.07.54.png' width='375'>
-  <img src='./assets/Simulator Screen Shot 2017年8月5日 08.07.50.png' width='375'>
+  <img src='./assets/Simulator Screen Shot 2017年8月7日 16.04.45.png' width='375'>
 </div>
 
 ## 开源协议
