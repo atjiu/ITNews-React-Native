@@ -1,25 +1,40 @@
 import React, {Component} from 'react';
-import {ScrollView, RefreshControl, Dimensions, Share} from 'react-native';
+import {Platform, ScrollView, RefreshControl, Dimensions, Share, Linking, View} from 'react-native';
 import Web from 'react-native-webview2';
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class NewsDetail extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.title}`,
-    headerRight: <Icon
-      name="share-alt"
-      size={18}
-      color="#000"
-      style={{paddingRight: 20}}
-      onPress={() => {
-        Share.share({
-          message: navigation.state.params.title + ' \r\n' + navigation.state.params.href + ' \r\n' + '分享来自ITNews'
-        })
-          .then(() => {
+    headerTitleStyle: {
+      // color: '#ff0000',
+      paddingRight: Platform.OS === 'ios' ? 0 : 40
+    },
+    headerRight: <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
+      <Icon
+        name="firefox"
+        size={22}
+        color="#000"
+        style={{paddingRight: 20}}
+        onPress={() => {
+          Linking.openURL(navigation.state.params.href)
+        }}
+      />
+      <Icon
+        name="share-alt"
+        size={22}
+        color="#000"
+        style={{paddingRight: 20}}
+        onPress={() => {
+          Share.share({
+            message: navigation.state.params.title + ' \r\n' + navigation.state.params.href + ' \r\n' + '分享来自ITNews'
           })
-          .catch((error) => console.log(error.message));
-      }}
-    />
+            .then(() => {
+            })
+            .catch((error) => console.log(error.message));
+        }}
+      />
+    </View>
   });
 
   constructor(props) {

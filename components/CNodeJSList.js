@@ -3,9 +3,7 @@ import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, Image, V
 import Moment from 'moment';
 import 'moment/locale/zh-cn';
 
-import NewsDetail from './NewsDetail';
-
-const url = 'https://cnodejs.org/';
+const url = 'https://cnodejs.org/api/v1/topics?page=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
@@ -15,25 +13,24 @@ export default class ItemList extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = ({
       refreshing: true,
       loadMore: false,
-      name: this.props.name,
       pageNo: 1,
       dataSource: [],
     })
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this._fetchData();
   }
 
   _fetchData() {
-    if (this.state.loadMore === this.state.loadMore) return;
-    fetch(url + 'api/v1/topics?page=' + this.state.pageNo)
+    if (this.state.refreshing === this.state.loadMore) return;
+    fetch(url + this.state.pageNo)
       .then(response => response.json())
       .then(json => {
+        console.log(json);
         this.setState({
           refreshing: false,
           loadMore: false,
@@ -62,7 +59,7 @@ export default class ItemList extends Component {
     const {navigate} = this.props.navigation;
     navigate('NewsDetail', {
       title: rowData.title,
-      href: url + 'topic/' + rowData.id
+      href: 'https://cnodejs.org/topic/' + rowData.id
     })
   }
 

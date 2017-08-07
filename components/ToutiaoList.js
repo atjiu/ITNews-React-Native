@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, View, Image} from 'react-native';
 import Cheerio from 'cheerio-without-node-native';
-import NewsDetail from './NewsDetail';
 import Moment from 'moment';
 import 'moment/locale/zh-cn';
 

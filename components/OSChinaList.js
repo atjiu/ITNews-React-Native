@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, View, Image} from 'react-native';
 import Cheerio from 'cheerio-without-node-native';
-import NewsDetail from './NewsDetail';
 import 'moment/locale/zh-cn';
 
 const url = 'https://www.oschina.net/action/ajax/get_more_news_list?newsType=&p=';

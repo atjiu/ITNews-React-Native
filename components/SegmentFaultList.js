@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, View, Image} from 'react-native';
 import Cheerio from 'cheerio-without-node-native';
-import NewsDetail from './NewsDetail';
-import Moment from 'moment';
-import 'moment/locale/zh-cn';
 
 const url = 'https://segmentfault.com/blogs?page=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -78,6 +75,7 @@ export default class ItemList extends Component {
   }
 
   _onPress(rowData) {
+    console.log(rowData);
     const {navigate} = this.props.navigation;
     navigate('NewsDetail', {
       title: rowData.title,

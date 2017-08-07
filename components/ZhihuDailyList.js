@@ -3,8 +3,6 @@ import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, Image, V
 import Moment from 'moment';
 import 'moment/locale/zh-cn';
 
-import NewsDetail from './NewsDetail';
-
 const url = 'https://news-at.zhihu.com/api/4/news/before/';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
