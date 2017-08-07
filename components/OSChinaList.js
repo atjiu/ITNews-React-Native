@@ -2,16 +2,16 @@ import React, {Component} from 'react';
 import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, View, Image} from 'react-native';
 import Cheerio from 'cheerio-without-node-native';
 import NewsDetail from './NewsDetail';
-import Moment from 'moment';
 import 'moment/locale/zh-cn';
 
 const url = 'https://www.oschina.net/action/ajax/get_more_news_list?newsType=&p=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
   });
+
   constructor(props) {
     super(props);
 
@@ -29,6 +29,7 @@ export default class ItemList extends Component {
   }
 
   _fetchData() {
+    if (this.state.refreshing === this.state.loadMore) return;
     fetch(url + this.state.pageNo)
       .then(response => response.text())
       .then(text => {
@@ -43,7 +44,7 @@ export default class ItemList extends Component {
           const avatar = $(v).find('.avatar').attr('src');
           const replyCount = $(v).find('.from>a>.mr').text();
           const thumb = $(v).find('.thumb>a>img').attr('src');
-          if(href.indexOf('https://') === -1) href = 'https://www.oschina.net' + href;
+          if (href.indexOf('https://') === -1) href = 'https://www.oschina.net' + href;
           temp.push({
             title: title,
             href: href,
@@ -66,16 +67,17 @@ export default class ItemList extends Component {
 
   _onRefresh() {
     this.setState({
+      refreshing: true,
       pageNo: 1
-    })
+    }, () => this._fetchData());
   }
 
   _onEndReached() {
+    if (this.state.dataSource.length === 0) return;
     this.setState({
       loadMore: true,
-      pageNo: this.state.pageNo + 1
-    });
-    this._fetchData();
+      pageNo: this.state.pageNo + 1,
+    }, () => this._fetchData());
   }
 
   _onPress(rowData) {

@@ -9,9 +9,10 @@ const url = 'https://segmentfault.com/blogs?page=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
   });
+
   constructor(props) {
     super(props);
 
@@ -29,6 +30,7 @@ export default class ItemList extends Component {
   }
 
   _fetchData() {
+    if (this.state.refreshing === this.state.loadMore) return;
     fetch(url + this.state.pageNo)
       .then(response => response.text())
       .then(text => {
@@ -52,7 +54,6 @@ export default class ItemList extends Component {
             zan: zan,
           });
         });
-        console.log(temp)
         this.setState({
           refreshing: false,
           loadMore: false,
@@ -65,15 +66,15 @@ export default class ItemList extends Component {
   _onRefresh() {
     this.setState({
       pageNo: 1
-    })
+    }, () => this._fetchData())
   }
 
   _onEndReached() {
+    if (this.state.dataSource.length === 0) return;
     this.setState({
       loadMore: true,
       pageNo: this.state.pageNo + 1
-    });
-    this._fetchData();
+    }, () => this._fetchData());
   }
 
   _onPress(rowData) {
