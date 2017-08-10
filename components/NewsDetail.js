@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {Platform, ScrollView, RefreshControl, Dimensions, Share, Linking, View} from 'react-native';
+import {
+  Platform,
+  ScrollView,
+  RefreshControl,
+  Dimensions,
+  Share,
+  Linking,
+  View,
+  Text,
+  StyleSheet
+} from 'react-native';
 import Web from 'react-native-webview2';
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -8,23 +18,32 @@ export default class NewsDetail extends Component {
     title: `${navigation.state.params.title}`,
     headerTitleStyle: {
       // color: '#ff0000',
-      paddingRight: Platform.OS === 'ios' ? 0 : 40
+      paddingRight: Platform.OS === 'ios' ? 0 : 60
     },
     headerRight: <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
       <Icon
-        name="firefox"
-        size={22}
+        name="heart-o"
+        size={20}
         color="#000"
-        style={{paddingRight: 20}}
+        style={{paddingRight: 10}}
+        onPress={() => {
+
+        }}
+      />
+      <Icon
+        name="firefox"
+        size={20}
+        color="#000"
+        style={{paddingRight: 10}}
         onPress={() => {
           Linking.openURL(navigation.state.params.href)
         }}
       />
       <Icon
         name="share-alt"
-        size={22}
+        size={20}
         color="#000"
-        style={{paddingRight: 20}}
+        style={{paddingRight: 10}}
         onPress={() => {
           Share.share({
             message: navigation.state.params.title + ' \r\n' + navigation.state.params.href + ' \r\n' + '分享来自ITNews'
@@ -36,6 +55,10 @@ export default class NewsDetail extends Component {
       />
     </View>
   });
+
+  setMessage(value) {
+    alert(value);
+  }
 
   constructor(props) {
     super(props);
@@ -62,20 +85,74 @@ export default class NewsDetail extends Component {
   }
 
   render() {
-    return <ScrollView
-      style={{flex: 1}}
-      refreshControl={
-        <RefreshControl
-          refreshing={this.state.refreshing}
-          onRefresh={this._onRefresh.bind(this)}
+    return (
+      <ScrollView
+        style={{flex: 1}}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh.bind(this)}
+          />
+        }>
+        <Web
+          canGoBack={true}
+          ref="webview"
+          source={{uri: this.state.href}}
+          onLoadEnd={this._onLoadEnd.bind(this)}
         />
-      }>
-      <Web
-        ref="webview"
-        source={{uri: this.state.href}}
-        onLoadEnd={this._onLoadEnd.bind(this)}
-      />
-    </ScrollView>
+      </ScrollView>
+    )
   }
-
 }
+
+const styles = StyleSheet.create({
+  topbar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    // backgroundColor: 'black',
+    paddingHorizontal: 5,
+    paddingVertical: 10
+  },
+  menuTrigger: {
+    flexDirection: 'row',
+    paddingHorizontal: 10
+  },
+  menuTriggerText: {
+    // color: 'lightgrey',
+    fontWeight: '600',
+    fontSize: 20
+  },
+  disabled: {
+    color: '#ccc'
+  },
+  divider: {
+    marginVertical: 5,
+    marginHorizontal: 2,
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
+  },
+  content: {
+    backgroundColor: 'white',
+    paddingHorizontal: 10,
+    paddingTop: 20,
+    paddingBottom: 30,
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
+  },
+  contentText: {
+    fontSize: 18
+  },
+  dropdown: {
+    width: 300,
+    borderColor: '#999',
+    borderWidth: 1,
+    padding: 5
+  },
+  dropdownOptions: {
+    marginTop: 30,
+    borderColor: '#ccc',
+    borderWidth: 2,
+    width: 300,
+    height: 200
+  }
+});
