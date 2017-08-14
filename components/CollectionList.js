@@ -26,7 +26,8 @@ export default class CollectionList extends Component {
     const {navigate} = this.props.navigation;
     navigate('NewsDetail', {
       title: rowData.title,
-      href: rowData.href
+      href: rowData.href,
+      collect: true
     })
   }
 

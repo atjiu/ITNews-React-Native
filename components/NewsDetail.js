@@ -19,33 +19,36 @@ export default class NewsDetail extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.title}`,
     headerTitleStyle: {
-      paddingRight: Platform.OS === 'ios' ? 0 : 60
+      // paddingRight: Platform.OS === 'ios' ? 0 : 40
     },
     headerRight: <View style={{justifyContent: 'flex-end', flexDirection: 'row'}}>
-      <Icon
-        name="heart-o"
-        size={20}
-        color="#000"
-        style={{paddingRight: 10}}
-        onPress={async () => {
-          const newCollection = new Collection({
-            title: navigation.state.params.title,
-            href: navigation.state.params.href
-          });
-          let arr = [];
-          const collections = await AsyncStorage.getItem(Config.collectionsKey);
-          if(collections) {
-            arr = JSON.parse(collections);
-            const collection = await arr.filter((collection) => {
-              return collection.href === newCollection.href && collection.title === newCollection.title;
-            });
-            if (collection.length > 0) return;
-          }
-          arr.push(newCollection);
-          await AsyncStorage.setItem(Config.collectionsKey, JSON.stringify(arr));
-          alert('收藏成功');
-        }}
-      />
+      {
+        !navigation.state.params.collect ?
+          <Icon
+            name="heart-o"
+            size={20}
+            color="#000"
+            style={{paddingRight: 10}}
+            onPress={async () => {
+              const newCollection = new Collection({
+                title: navigation.state.params.title,
+                href: navigation.state.params.href
+              });
+              let arr = [];
+              const collections = await AsyncStorage.getItem(Config.collectionsKey);
+              if(collections) {
+                arr = JSON.parse(collections);
+                const collection = await arr.filter((collection) => {
+                  return collection.href === newCollection.href && collection.title === newCollection.title;
+                });
+                if (collection.length > 0) return;
+              }
+              arr.push(newCollection);
+              await AsyncStorage.setItem(Config.collectionsKey, JSON.stringify(arr));
+              alert('收藏成功');
+            }}
+          /> : null
+      }
       <Icon
         name="firefox"
         size={20}
