@@ -22,6 +22,14 @@ export default class CollectionList extends Component {
     })
   }
 
+  _onPress(rowData) {
+    const {navigate} = this.props.navigation;
+    navigate('NewsDetail', {
+      title: rowData.title,
+      href: rowData.href
+    })
+  }
+
   _renderRow(rowData) {
     return <TouchableHighlight
       underlayColor='#008b8b'
