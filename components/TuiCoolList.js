@@ -50,7 +50,7 @@ export default class ItemList extends Component {
         this.setState({
           refreshing: false,
           loadMore: false,
-          dataSource: this.state.pageNo === 1 ? temp : this.state.dataSource.concat(temp)
+          dataSource: this.state.pageNo === 0 ? temp : this.state.dataSource.concat(temp)
         })
       })
       .catch(error => console.info(error));

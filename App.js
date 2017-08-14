@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
-  AppRegistry, Image, ListView, StyleSheet,
-  Text, TouchableHighlight, View,
+  AppRegistry
 } from 'react-native';
 import {StackNavigator, TabNavigator, TabBarBottom} from 'react-navigation';
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -16,6 +15,8 @@ import TuiCoolList from './components/TuiCoolList';
 import SegmentFaultList from './components/SegmentFaultList';
 import ZhihuDailyList from "./components/ZhihuDailyList";
 import NewsDetail from "./components/NewsDetail";
+import JueJinList from "./components/JueJinList";
+import Kr36List from "./components/Kr36List";
 
 const ITNewsTabNavigator = TabNavigator({
     Main: {
@@ -65,6 +66,8 @@ const ITNews = StackNavigator({
   TuiCool: {screen: TuiCoolList},
   SegmentFault: {screen: SegmentFaultList},
   ZhihuDaily: {screen: ZhihuDailyList},
+  JueJin: {screen: JueJinList},
+  Kr36: {screen: Kr36List},
   NewsDetail: {screen: NewsDetail},
 });
 

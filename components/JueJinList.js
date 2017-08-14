@@ -3,7 +3,7 @@ import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, Image, V
 import Moment from 'moment';
 import 'moment/locale/zh-cn';
 
-const url = 'https://cnodejs.org/api/v1/topics?page=';
+const url = 'https://timeline-merger-ms.juejin.im/v1/get_entry_by_rank?src=web&limit=20&category=all&before=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
@@ -16,7 +16,7 @@ export default class ItemList extends Component {
     this.state = ({
       refreshing: true,
       loadMore: false,
-      pageNo: 1,
+      pageNo: '',
       dataSource: [],
     })
   }
@@ -33,7 +33,7 @@ export default class ItemList extends Component {
         this.setState({
           refreshing: false,
           loadMore: false,
-          dataSource: this.state.pageNo === 1 ? json.data : this.state.dataSource.concat(json.data)
+          dataSource: this.state.pageNo === '' ? json.d.entrylist : this.state.dataSource.concat(json.d.entrylist)
         })
       })
       .catch(error => console.info(error));
@@ -50,7 +50,7 @@ export default class ItemList extends Component {
     if (this.state.dataSource.length === 0) return;
     this.setState({
       loadMore: true,
-      pageNo: this.state.pageNo + 1,
+      pageNo: this.state.dataSource[this.state.dataSource.length-1].rankIndex,
     }, () => this._fetchData());
   }
 
@@ -58,7 +58,7 @@ export default class ItemList extends Component {
     const {navigate} = this.props.navigation;
     navigate('NewsDetail', {
       title: rowData.title,
-      href: 'https://cnodejs.org/topic/' + rowData.id
+      href: 'https://juejin.im/entry/' + rowData.objectId
     })
   }
 
@@ -66,18 +66,24 @@ export default class ItemList extends Component {
     return <TouchableHighlight
       underlayColor='#008b8b'
       onPress={() => this._onPress(rowData)}>
-      <View style={styles.rowStyle}>
-        <Image
-          style={{width: 40, height: 40, borderRadius: 20}}
-          source={{uri: rowData.author.avatar_url}}
-        />
-        <View style={{paddingLeft: 10, flexDirection: 'column', flex: 1}}>
-          <Text style={{fontSize: 18,}}>{rowData.title}</Text>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
-            <Text style={styles.other}>{Moment(rowData.create_at).fromNow()}</Text>
-            <Text style={[styles.other]}>{rowData.reply_count} 个回复</Text>
+      <View style={[styles.rowStyle, {flexDirection: 'row', justifyContent: 'space-between'}]}>
+        <View style={{flex: 1}}>
+          <Text style={styles.rowText}>{rowData.title}</Text>
+          <View style={{flexDirection: 'row', marginTop: 10, justifyContent: 'space-between', alignItems: 'flex-end'}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image
+                style={{width: 20, height: 20, borderRadius: 10, marginRight: 5}}
+                source={{uri: rowData.user.avatarLarge}}
+              />
+              <Text style={styles.other}>{rowData.user.username}</Text>
+              <Text style={styles.other}>{Moment(rowData.createAt).fromNow()}</Text>
+            </View>
+            <Text style={[styles.other, {}]}>{rowData.commentsCount} 个回复</Text>
           </View>
         </View>
+        {
+          rowData.screenshot ? <Image style={{width: 60}} source={{uri: rowData.screenshot}}/> : <View/>
+        }
       </View>
     </TouchableHighlight>
   }
@@ -109,18 +115,22 @@ const styles = StyleSheet.create({
   listView: {
     backgroundColor: '#eee',
   },
+  rowText: {
+    fontSize: 18,
+    paddingRight: 10,
+  },
   other: {
+    marginRight: 5,
     fontSize: 14,
-    paddingTop: 10,
     color: '#777'
   },
   rowStyle: {
     padding: 10,
     backgroundColor: '#fff',
-    flexDirection: 'row',
     marginBottom: 1,
   },
   footer: {
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

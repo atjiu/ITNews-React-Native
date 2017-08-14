@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, Image, View} from 'react-native';
+import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, View, Image} from 'react-native';
 import Moment from 'moment';
 import 'moment/locale/zh-cn';
 
-const url = 'https://cnodejs.org/api/v1/topics?page=';
+const url = 'http://36kr.com/api/info-flow/main_site/posts?column_id=&per_page=20&b_id=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
@@ -13,10 +13,12 @@ export default class ItemList extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = ({
       refreshing: true,
       loadMore: false,
-      pageNo: 1,
+      name: this.props.name,
+      pageNo: '',
       dataSource: [],
     })
   }
@@ -33,7 +35,7 @@ export default class ItemList extends Component {
         this.setState({
           refreshing: false,
           loadMore: false,
-          dataSource: this.state.pageNo === 1 ? json.data : this.state.dataSource.concat(json.data)
+          dataSource: this.state.pageNo === '' ? json.data.items : this.state.dataSource.concat(json.data.items)
         })
       })
       .catch(error => console.info(error));
@@ -41,8 +43,7 @@ export default class ItemList extends Component {
 
   _onRefresh() {
     this.setState({
-      refreshing: true,
-      pageNo: 1,
+      pageNo: ''
     }, () => this._fetchData());
   }
 
@@ -50,7 +51,7 @@ export default class ItemList extends Component {
     if (this.state.dataSource.length === 0) return;
     this.setState({
       loadMore: true,
-      pageNo: this.state.pageNo + 1,
+      pageNo: this.state.dataSource[this.state.dataSource.length-1].id
     }, () => this._fetchData());
   }
 
@@ -58,7 +59,7 @@ export default class ItemList extends Component {
     const {navigate} = this.props.navigation;
     navigate('NewsDetail', {
       title: rowData.title,
-      href: 'https://cnodejs.org/topic/' + rowData.id
+      href: 'http://36kr.com/p/' + rowData.id
     })
   }
 
@@ -67,15 +68,18 @@ export default class ItemList extends Component {
       underlayColor='#008b8b'
       onPress={() => this._onPress(rowData)}>
       <View style={styles.rowStyle}>
-        <Image
-          style={{width: 40, height: 40, borderRadius: 20}}
-          source={{uri: rowData.author.avatar_url}}
-        />
-        <View style={{paddingLeft: 10, flexDirection: 'column', flex: 1}}>
-          <Text style={{fontSize: 18,}}>{rowData.title}</Text>
+        {
+          rowData.cover ?
+            <Image
+              style={{width: 120, height: 75, marginRight: 10}}
+              source={{uri: rowData.cover}}
+            /> : null
+        }
+        <View style={{flex: 1}}>
+          <Text style={styles.rowText}>{rowData.title}</Text>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
-            <Text style={styles.other}>{Moment(rowData.create_at).fromNow()}</Text>
-            <Text style={[styles.other]}>{rowData.reply_count} 个回复</Text>
+            <Text style={styles.other}>{Moment(rowData.published_at).fromNow()}</Text>
+            <Text style={[styles.other]}>{rowData.counters.comment} 个回复</Text>
           </View>
         </View>
       </View>
@@ -85,7 +89,7 @@ export default class ItemList extends Component {
   render() {
     const FooterView = this.state.loadMore ?
       <View style={styles.footer}>
-        <Text style={{fontSize: 18, color: '#777'}}>加载更多...</Text>
+        <Text style={{fontSize: 16, color: '#777'}}>加载更多...</Text>
       </View> : null;
     return <ListView
       refreshControl={
@@ -109,18 +113,24 @@ const styles = StyleSheet.create({
   listView: {
     backgroundColor: '#eee',
   },
+  rowText: {
+    fontSize: 18,
+    paddingRight: 10,
+  },
   other: {
     fontSize: 14,
-    paddingTop: 10,
+    marginTop: 10,
     color: '#777'
   },
   rowStyle: {
+    flex: 1,
     padding: 10,
     backgroundColor: '#fff',
     flexDirection: 'row',
     marginBottom: 1,
   },
   footer: {
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Image, ListView, Text, TouchableHighlight, View, StyleSheet} from 'react-native';
-import {StackNavigator} from 'react-navigation';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -26,6 +25,12 @@ export default class HomeComponent extends Component {
       }, {
         name: '知乎日报',
         logo: require('../images/zhihudaily.png')
+      }, {
+        name: '掘金',
+        logo: require('../images/juejin.png')
+      }, {
+        name: '36氪',
+        logo: require('../images/36kr.jpeg')
       }]),
     });
   }
@@ -54,6 +59,14 @@ export default class HomeComponent extends Component {
       })
     } else if (rowData === '知乎日报') {
       navigate('ZhihuDaily', {
+        name: rowData,
+      })
+    } else if (rowData === '掘金') {
+      navigate('JueJin', {
+        name: rowData,
+      })
+    } else if (rowData === '36氪') {
+      navigate('Kr36', {
         name: rowData,
       })
     }
