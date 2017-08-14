@@ -17,6 +17,7 @@ import ZhihuDailyList from "./components/ZhihuDailyList";
 import NewsDetail from "./components/NewsDetail";
 import JueJinList from "./components/JueJinList";
 import Kr36List from "./components/Kr36List";
+import CollectionList from "./components/CollectionList";
 
 const ITNewsTabNavigator = TabNavigator({
     Main: {
@@ -69,6 +70,12 @@ const ITNews = StackNavigator({
   JueJin: {screen: JueJinList},
   Kr36: {screen: Kr36List},
   NewsDetail: {screen: NewsDetail},
+  Collections: {
+    screen: CollectionList,
+    navigationOptions: {
+      headerTitle: '我的收藏'
+    }
+  },
 });
 
 AppRegistry.registerComponent('ITNews', () => ITNews);
