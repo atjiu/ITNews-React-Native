@@ -6,7 +6,8 @@ IT资讯APP，使用React Native编写
 
 ## 使用到的组件
 
-- StackNavigator
+- react-navigation(StackNavigator, TabNavigator)
+- AsyncStorage
 - react-native-webview2
 - react-native-vector-icons
 - cheerio-without-node-native
@@ -39,9 +40,10 @@ MYAPP_RELEASE_KEY_PASSWORD=your password
 ## 截图
 
 <div style="display: flex; flex-direction: 'row'; justify-content: 'space-between'">
-  <img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.14.png' width='375'>
-  <img src='./assets/Simulator Screen Shot 2017年8月4日 11.18.22.png' width='375'>
-  <img src='./assets/Simulator Screen Shot 2017年8月7日 16.04.45.png' width='375'>
+  <img src='./assets/1.png' width='375'>
+  <img src='./assets/2.png' width='375'>
+  <img src='./assets/3.png' width='375'>
+  <img src='./assets/4.png' width='375'>
 </div>
 
 ## 开源协议

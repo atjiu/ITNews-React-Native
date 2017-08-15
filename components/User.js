@@ -11,6 +11,9 @@ export default class UserComponent extends Component {
       await AsyncStorage.removeItem(Config.collectionsKey);
       alert("清空成功");
     }
+    if(i === 1) {
+      alert("待实现");
+    }
     if(i === 2) {
       navigate('Collections')
     }
