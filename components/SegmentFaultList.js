@@ -6,11 +6,15 @@ import Moment from 'moment';
 import 'moment/locale/zh-cn';
 
 const url = 'https://segmentfault.com/blogs?page=';
+const userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
+    headerStyle: { backgroundColor: '#0099ff', },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: { color: 'white' },
   });
 
   constructor(props) {
@@ -31,7 +35,7 @@ export default class ItemList extends Component {
 
   _fetchData() {
     if (this.state.refreshing === this.state.loadMore) return;
-    fetch(url + this.state.pageNo)
+    fetch(url + this.state.pageNo, {userAgent: userAgent})
       .then(response => response.text())
       .then(text => {
         let temp = [];

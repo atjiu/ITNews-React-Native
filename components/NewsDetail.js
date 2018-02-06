@@ -6,6 +6,9 @@ import Icon from "react-native-vector-icons/FontAwesome";
 export default class NewsDetail extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.title}`,
+    headerStyle: { backgroundColor: '#0099ff', },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: { color: 'white' },
     headerRight: <Icon
       name="share-alt"
       size={18}

@@ -13,6 +13,9 @@ const ONEDAY = 24 * 60 * 60 * 1000;
 export default class ItemList extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
+    headerStyle: { backgroundColor: '#0099ff', },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: { color: 'white' },
   });
 
   constructor(props) {

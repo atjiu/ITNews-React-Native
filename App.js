@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
   AppRegistry, Image, ListView, StyleSheet,
-  Text, TouchableHighlight, View,
+  Text, TouchableHighlight, View, StatusBar, Platform
 } from 'react-native';
 import {StackNavigator} from 'react-navigation';
 
@@ -11,6 +11,7 @@ import ToutiaoList from './components/ToutiaoList';
 import TuiCoolList from './components/TuiCoolList';
 import SegmentFaultList from './components/SegmentFaultList';
 import ZhihuDailyList from "./components/ZhihuDailyList";
+import V2EXList from "./components/V2EXList";
 import NewsDetail from "./components/NewsDetail";
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -18,6 +19,9 @@ const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class HomeScreen extends Component {
   static navigationOptions = {
     title: 'IT资讯',
+    headerStyle: { backgroundColor: '#0099ff', },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: { color: 'white' },
   };
 
   constructor(props) {
@@ -35,12 +39,15 @@ class HomeScreen extends Component {
       }, {
         name: '推酷',
         logo: require('./images/tuicool.png')
-      }, {
-        name: 'SegmentFault',
-        logo: require('./images/segmentfault.png')
+      // }, {
+      //   name: 'SegmentFault',
+      //   logo: require('./images/segmentfault.png')
       }, {
         name: '知乎日报',
         logo: require('./images/zhihudaily.png')
+      }, {
+        name: 'V2EX',
+        logo: require('./images/v2ex.png')
       }]),
     });
   }
@@ -71,24 +78,33 @@ class HomeScreen extends Component {
       navigate('ZhihuDaily', {
         name: rowData,
       })
+    } else if (rowData === 'V2EX') {
+      navigate('V2EX', {
+        name: rowData,
+      })
     }
   }
 
   render() {
-    return <ListView
-      style={styles.listView}
-      dataSource={this.state.dataSource}
-      renderRow={(rowData) =>
-        <TouchableHighlight
-          style={styles.rowStyle}
-          underlayColor='#008b8b'
-          onPress={() => this._onPress(rowData.name)}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image style={{width: 40, height: 40, borderRadius: 4}} source={rowData.logo}/>
-            <Text style={styles.rowText}>{rowData.name}</Text>
-          </View>
-        </TouchableHighlight>}
-    />
+    return <View style={{flex: 1}}>
+      {
+        Platform.OS === 'ios' ? <StatusBar barStyle='light-content' backgroundColor='#FFFFFF'/> : null
+      }
+      <ListView
+        style={styles.listView}
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) =>
+          <TouchableHighlight
+            style={styles.rowStyle}
+            underlayColor='#008b8b'
+            onPress={() => this._onPress(rowData.name)}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Image style={{width: 40, height: 40, borderRadius: 4}} source={rowData.logo}/>
+              <Text style={styles.rowText}>{rowData.name}</Text>
+            </View>
+          </TouchableHighlight>}
+      />
+    </View>
   }
 }
 
@@ -116,9 +132,8 @@ const ITNews = StackNavigator({
   TuiCool: {screen: TuiCoolList},
   SegmentFault: {screen: SegmentFaultList},
   ZhihuDaily: {screen: ZhihuDailyList},
-  NewsDetail: {
-    screen: NewsDetail,
-  },
+  V2EX: {screen: V2EXList},
+  NewsDetail: {screen: NewsDetail,},
 });
 
 AppRegistry.registerComponent('ITNews', () => ITNews);
