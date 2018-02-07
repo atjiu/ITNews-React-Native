@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import {ListView, Text, StyleSheet, TouchableHighlight, RefreshControl, View, Image} from 'react-native';
-import Cheerio from 'cheerio-without-node-native';
+import Moment from 'moment';
+import 'moment/locale/zh-cn';
 
-const url = 'http://www.tuicool.com/ah/0/';
+const url = 'http://36kr.com/api/info-flow/main_site/posts?column_id=&per_page=20&b_id=';
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 export default class ItemList extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
-    headerStyle: { backgroundColor: '#0099ff', },
-    headerTintColor: '#FFFFFF',
-    headerTitleStyle: { color: 'white' },
   });
 
   constructor(props) {
@@ -20,7 +18,7 @@ export default class ItemList extends Component {
       refreshing: true,
       loadMore: false,
       name: this.props.name,
-      pageNo: 0,
+      pageNo: '',
       dataSource: [],
     })
   }
@@ -32,28 +30,12 @@ export default class ItemList extends Component {
   _fetchData() {
     if (this.state.refreshing === this.state.loadMore) return;
     fetch(url + this.state.pageNo)
-      .then(response => response.text())
-      .then(text => {
-        let temp = [];
-        const $ = Cheerio.load(text);
-        $('.list_article_item').each(function (i, v) {
-          const title = $(v).find('.title').text().replace(/\r\n/gi, '').trim();
-          const href = $(v).find('.title>a').attr('href');
-          const img = $(v).find('.article_thumb_image>img').attr('src');
-          const name = $(v).find('.tip>span').eq(0).text().replace(/\r\n/gi, '').trim();
-          const time = $(v).find('.tip>span').eq(2).text().replace(/\r\n/gi, '').trim();
-          temp.push({
-            title: title,
-            href: 'http://www.tuicool.com' + href,
-            name: name,
-            time: time,
-            img: img,
-          });
-        });
+      .then(response => response.json())
+      .then(json => {
         this.setState({
           refreshing: false,
           loadMore: false,
-          dataSource: this.state.pageNo === 0 ? temp : this.state.dataSource.concat(temp)
+          dataSource: this.state.pageNo === '' ? json.data.items : this.state.dataSource.concat(json.data.items)
         })
       })
       .catch(error => console.info(error));
@@ -61,7 +43,7 @@ export default class ItemList extends Component {
 
   _onRefresh() {
     this.setState({
-      pageNo: 0
+      pageNo: ''
     }, () => this._fetchData());
   }
 
@@ -69,7 +51,7 @@ export default class ItemList extends Component {
     if (this.state.dataSource.length === 0) return;
     this.setState({
       loadMore: true,
-      pageNo: this.state.pageNo + 1
+      pageNo: this.state.dataSource[this.state.dataSource.length-1].id
     }, () => this._fetchData());
   }
 
@@ -77,7 +59,7 @@ export default class ItemList extends Component {
     const {navigate} = this.props.navigation;
     navigate('NewsDetail', {
       title: rowData.title,
-      href: rowData.href
+      href: 'http://36kr.com/p/' + rowData.id
     })
   }
 
@@ -86,14 +68,20 @@ export default class ItemList extends Component {
       underlayColor='#008b8b'
       onPress={() => this._onPress(rowData)}>
       <View style={styles.rowStyle}>
-        <View style={{flex: 1, paddingRight: 10}}>
-          <Text style={{fontSize: 18}}>{rowData.title}</Text>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10}}>
-            <Text style={styles.other}>{rowData.name}</Text>
-            <Text style={styles.other}>{rowData.time}</Text>
+        {
+          rowData.cover ?
+            <Image
+              style={{width: 120, height: 75, marginRight: 10}}
+              source={{uri: rowData.cover}}
+            /> : null
+        }
+        <View style={{flex: 1}}>
+          <Text style={styles.rowText}>{rowData.title}</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+            <Text style={styles.other}>{Moment(rowData.published_at).fromNow()}</Text>
+            <Text style={[styles.other]}>{rowData.counters.comment} 个回复</Text>
           </View>
         </View>
-        <Image source={{uri: rowData.img}} style={{width: 60}}/>
       </View>
     </TouchableHighlight>
   }
@@ -125,17 +113,21 @@ const styles = StyleSheet.create({
   listView: {
     backgroundColor: '#eee',
   },
+  rowText: {
+    fontSize: 18,
+    paddingRight: 10,
+  },
   other: {
-    marginRight: 5,
     fontSize: 14,
+    marginTop: 10,
     color: '#777'
   },
   rowStyle: {
+    flex: 1,
     padding: 10,
     backgroundColor: '#fff',
     flexDirection: 'row',
     marginBottom: 1,
-    justifyContent: 'space-between'
   },
   footer: {
     flex: 1,
