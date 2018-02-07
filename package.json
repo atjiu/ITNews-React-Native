@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"test": "jest",
+		"bundle-ios": "react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/ITNews/main.jsbundle --assets-dest ios/ITNews/"
 	},
 	"dependencies": {
 		"cheerio-without-node-native": "^0.20.2",

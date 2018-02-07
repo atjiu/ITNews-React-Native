@@ -9,6 +9,9 @@ const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class ItemList extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
+    headerStyle: { backgroundColor: '#0099ff', },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: { color: 'white' },
   });
 
   constructor(props) {

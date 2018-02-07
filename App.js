@@ -12,6 +12,8 @@ import TuiCoolList from './components/TuiCoolList';
 import SegmentFaultList from './components/SegmentFaultList';
 import ZhihuDailyList from "./components/ZhihuDailyList";
 import V2EXList from "./components/V2EXList";
+import JueJinList from "./components/JueJinList";
+import Kr36List from "./components/Kr36List";
 import NewsDetail from "./components/NewsDetail";
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -48,6 +50,12 @@ class HomeScreen extends Component {
       }, {
         name: 'V2EX',
         logo: require('./images/v2ex.png')
+      }, {
+        name: '36氪',
+        logo: require('./images/36kr.jpeg')
+      }, {
+        name: '掘金',
+        logo: require('./images/juejin.png')
       }]),
     });
   }
@@ -80,6 +88,14 @@ class HomeScreen extends Component {
       })
     } else if (rowData === 'V2EX') {
       navigate('V2EX', {
+        name: rowData,
+      })
+    } else if (rowData === '36氪') {
+      navigate('kr36', {
+        name: rowData,
+      })
+    } else if (rowData === '掘金') {
+      navigate('juejin', {
         name: rowData,
       })
     }
@@ -133,6 +149,8 @@ const ITNews = StackNavigator({
   SegmentFault: {screen: SegmentFaultList},
   ZhihuDaily: {screen: ZhihuDailyList},
   V2EX: {screen: V2EXList},
+  kr36: {screen: Kr36List},
+  juejin: {screen: JueJinList},
   NewsDetail: {screen: NewsDetail,},
 });
 

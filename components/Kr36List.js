@@ -9,6 +9,9 @@ const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class ItemList extends Component {
   static navigationOptions = ({navigation}) => ({
     title: `${navigation.state.params.name}`,
+    headerStyle: { backgroundColor: '#0099ff', },
+    headerTintColor: '#FFFFFF',
+    headerTitleStyle: { color: 'white' },
   });
 
   constructor(props) {
@@ -38,7 +41,7 @@ export default class ItemList extends Component {
           dataSource: this.state.pageNo === '' ? json.data.items : this.state.dataSource.concat(json.data.items)
         })
       })
-      .catch(error => console.info(error));
+      .catch(error => console.info('kr36-error', error));
   }
 
   _onRefresh() {

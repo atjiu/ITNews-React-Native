@@ -12,7 +12,7 @@ export default class NewsDetail extends Component {
     headerRight: <Icon
       name="share-alt"
       size={18}
-      color="#000"
+      color="#FFF"
       style={{paddingRight: 20}}
       onPress={() => {
         Share.share({
