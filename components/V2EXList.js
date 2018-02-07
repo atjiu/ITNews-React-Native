@@ -684,19 +684,6 @@ export default class ItemList extends Component {
         })
       })
       .catch(error => console.info('v2ex-error', error));
-    // const tmp = [{
-    //   title: '[阿里内推] 年底大量招人，需要的请进来看看',
-    //   href: 'https://v2ex.com',
-    //   avatar: 'https://cdn.v2ex.com/avatar/cf7f/2f64/82428_normal.png?m=1515205549',
-    //   tab: 'share',
-    //   author: 'tomoya',
-    //   replyCount: 123,
-    //   time: '2分钟前'
-    // }]
-    // this.setState({
-    //   refreshing: false,
-    //   dataSource: tmp
-    // })
   }
 
   _onRefresh() {
@@ -757,6 +744,10 @@ export default class ItemList extends Component {
 const styles = StyleSheet.create({
   listView: {
     backgroundColor: '#eee',
+  },
+  rowText: {
+    fontSize: 18,
+    paddingRight: 10,
   },
   rowStyle: {
     padding: 10,
