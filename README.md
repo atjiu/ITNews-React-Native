@@ -43,7 +43,6 @@ MYAPP_RELEASE_KEY_PASSWORD=your password
   <img src='./assets/1.png' width='375'>
   <img src='./assets/2.png' width='375'>
   <img src='./assets/3.png' width='375'>
-  <img src='./assets/4.png' width='375'>
 </div>
 
 ## 开源协议
