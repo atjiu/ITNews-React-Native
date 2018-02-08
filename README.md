@@ -6,8 +6,7 @@ IT资讯APP，使用React Native编写
 
 ## 使用到的组件
 
-- react-navigation(StackNavigator, TabNavigator)
-- AsyncStorage
+- react-navigation StackNavigator
 - react-native-webview2
 - react-native-vector-icons
 - cheerio-without-node-native
