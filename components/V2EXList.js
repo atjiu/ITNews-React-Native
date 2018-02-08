@@ -647,6 +647,7 @@ export default class ItemList extends Component {
 
     this.state = ({
       refreshing: true,
+      loadMore: false,
       name: this.props.name,
       dataSource: [],
     })
@@ -657,6 +658,7 @@ export default class ItemList extends Component {
   }
 
   _fetchData() {
+    if(!this.state.refreshing) return;
     fetch(url, {
       headers: {
         'User-Agent': userAgent
@@ -668,6 +670,7 @@ export default class ItemList extends Component {
         const $ = Cheerio.load(text);
         $('#Main .item').each(function (i, v) {
           tmp.push({
+            top: $(v).attr('style'),
             title: $(v).find('.item_title').text(),
             href: 'https://v2ex.com' + $(v).find('.item_title>a').attr('href'),
             avatar: $(v).find('img').first().attr('src').replace('//', 'https://'),
@@ -687,7 +690,9 @@ export default class ItemList extends Component {
   }
 
   _onRefresh() {
-    this._fetchData()
+    this.setState({
+      refreshing: true
+    }, () => this._fetchData());
   }
 
   _onPress(rowData) {
@@ -711,7 +716,7 @@ export default class ItemList extends Component {
             /> : null
         }
         <View style={{flex: 1}}>
-          <Text style={styles.rowText}>{rowData.title}</Text>
+          <Text style={styles.rowText}>{rowData.title} {rowData.top}</Text>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end'}}>
             <View style={styles.other}>
               <Text style={styles.tab}>{rowData.tab}</Text>
@@ -726,6 +731,10 @@ export default class ItemList extends Component {
   }
 
   render() {
+    const FooterView = this.state.loadMore ?
+      <View style={styles.footer}>
+        <Text style={{fontSize: 16, color: '#777'}}>加载更多...</Text>
+      </View> : null;
     return <ListView
       refreshControl={
         <RefreshControl
@@ -737,6 +746,7 @@ export default class ItemList extends Component {
       dataSource={ds.cloneWithRows(this.state.dataSource)}
       enableEmptySections={true}
       renderRow={this._renderRow.bind(this)}
+      renderFooter={() => FooterView}
     />
   }
 }
