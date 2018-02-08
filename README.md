@@ -40,7 +40,7 @@ MYAPP_RELEASE_KEY_PASSWORD=your password
 ## 截图
 
 <div style="display: flex; flex-direction: 'row'; justify-content: 'space-between'">
-  <img src='./assets/1.png' width='375'>
+  <img src='./assets/4.png' width='375'>
   <img src='./assets/2.png' width='375'>
   <img src='./assets/3.png' width='375'>
 </div>
